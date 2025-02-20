@@ -12,6 +12,10 @@ export const routes: Routes = [
     component: HeroPageComponent
   },
   {
+    path: 'dragonball',
+    component: HeroPageComponent
+  },
+  {
     path: '**',
     redirectTo: ''
   }
