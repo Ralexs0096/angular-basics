@@ -10,6 +10,9 @@ interface Characters {
   templateUrl: './dragonball-page.component.html',
 })
 export class DragonballPageComponent {
+  name = signal('');
+  power = signal(0);
+
   characters = signal<Characters[]>([
     {
       id: 1,
@@ -32,4 +35,20 @@ export class DragonballPageComponent {
       power: 500,
     },
   ]);
+
+  addCharacter() {
+    if (!this.name() || !this.power() || this.power() <= 0) {
+      return;
+    }
+    this.characters.update((current) => [
+      ...current,
+      { id: current.length, name: this.name(), power: this.power() },
+    ]);
+    this.resetFields();
+  }
+
+  resetFields() {
+    this.name.set('');
+    this.power.set(0);
+  }
 }
