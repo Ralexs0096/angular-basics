@@ -1,3 +1,4 @@
+import { DragonballFormComponent } from './../../components/dragonball/dragonball-form/dragonball-form.component';
 import { Component, signal } from '@angular/core';
 import { CharacterListComponent } from '../../components/dragonball/character-list/character-list.component';
 import { Characters } from '../../interfaces/character.interface';
@@ -5,7 +6,7 @@ import { Characters } from '../../interfaces/character.interface';
 @Component({
   templateUrl: './dragonball-super-page.component.html',
   selector: 'dragonball-super',
-  imports: [CharacterListComponent],
+  imports: [CharacterListComponent, DragonballFormComponent],
 })
 export class DragonballSuperPageComponent {
   name = signal('');
@@ -23,20 +24,4 @@ export class DragonballSuperPageComponent {
       power: 8000,
     },
   ]);
-
-  addCharacter() {
-    if (!this.name() || !this.power() || this.power() <= 0) {
-      return;
-    }
-    this.characters.update((current) => [
-      ...current,
-      { id: current.length, name: this.name(), power: this.power() },
-    ]);
-    this.resetFields();
-  }
-
-  resetFields() {
-    this.name.set('');
-    this.power.set(0);
-  }
 }
