@@ -1,7 +1,7 @@
 import { DragonballFormComponent } from './../../components/dragonball/dragonball-form/dragonball-form.component';
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CharacterListComponent } from '../../components/dragonball/character-list/character-list.component';
-import { Characters as Character } from '../../interfaces/character.interface';
+import { DragonballService } from '../../services/dragonball.service';
 
 @Component({
   templateUrl: './dragonball-super-page.component.html',
@@ -9,23 +9,7 @@ import { Characters as Character } from '../../interfaces/character.interface';
   imports: [CharacterListComponent, DragonballFormComponent],
 })
 export class DragonballSuperPageComponent {
-  name = signal('');
-  power = signal(0);
+  // constructor(public dragonballService: DragonballService) {} // old way
 
-  characters = signal<Character[]>([
-    {
-      id: 1,
-      name: 'Goku',
-      power: 9001,
-    },
-    {
-      id: 2,
-      name: 'Vegeta',
-      power: 8000,
-    },
-  ]);
-
-  addCharacter(newCharacter: Character) {
-    this.characters.update((current) => [...current, newCharacter]);
-  }
+  public dragonballService = inject(DragonballService); // new way
 }
